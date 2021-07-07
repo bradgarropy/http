@@ -1,18 +1,20 @@
 {
-    "name": "@bradgarropy/node-library-starter",
-    "version": "1.2.2",
-    "description": "🟢 node library starter",
+    "name": "@bradgarropy/http",
+    "version": "0.0.1",
+    "description": "📻 http request library",
     "keywords": [
         "node",
         "typescript",
         "eslint",
         "prettier",
         "jest",
-        "starter"
+        "http",
+        "fetch",
+        "ajax"
     ],
-    "homepage": "https://github.com/bradgarropy/node-library-starter",
+    "homepage": "https://github.com/bradgarropy/http",
     "bugs": {
-        "url": "https://github.com/bradgarropy/node-library-starter/issues"
+        "url": "https://github.com/bradgarropy/http/issues"
     },
     "license": "MIT",
     "author": {
@@ -27,7 +29,7 @@
     "types": "dist/types/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/bradgarropy/node-library-starter"
+        "url": "https://github.com/bradgarropy/http"
     },
     "scripts": {
         "start": "tsc --watch",
@@ -42,6 +44,7 @@
         "prepare": "npm run build"
     },
     "dependencies": {
+        "cross-fetch": "^3.1.4",
         "tslib": "^2.1.0"
     },
     "devDependencies": {
