@@ -1,4 +1,22 @@
-const example = require("../.")
+const http = require("../.")
 
-console.log(example)
-example("Brad")
+const main = async () => {
+    const posts = await http.get("https://jsonplaceholder.typicode.com/posts")
+    console.log(posts)
+
+    const post = await http.get("https://jsonplaceholder.typicode.com/posts/1")
+    console.log(post)
+
+    const newPost = await http.post(
+        "https://jsonplaceholder.typicode.com/posts",
+        {
+            title: "foo",
+            body: "bar",
+            userId: 1,
+        },
+    )
+
+    console.log(newPost)
+}
+
+main()
