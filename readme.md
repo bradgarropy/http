@@ -1,4 +1,4 @@
-# 📻 http request library
+# 📻 http
 
 [![version][version-badge]][npm]
 [![downloads][downloads-badge]][npm]
@@ -10,9 +10,9 @@
 [![contributors][contributors-badge]][contributors]
 [![discord][discord-badge]][discord]
 
-_Starter for `node` libraries._
+_📻 http request library heavily inspired by [axios][axios]._
 
-// TODO: write intro section.
+Most of the time, `fetch` is used to interact with a JSON API. This library is a thin wrapper around `fetch` that converts the request and response body to JSON by default.
 
 ## 📦 Installation
 
@@ -24,11 +24,56 @@ npm install @bradgarropy/http
 
 ## 🥑 Usage
 
-// TODO: Write usage section.
+This library's API is very similar to [axios][axios]. You can issue HTTP requests which are assumed to be JSON by default. It returns a `Promise` with the response data.
+
+```javascript
+// get all posts
+const posts = await get("https://jsonplaceholder.typicode.com/posts")
+
+// get one post
+const post = await get("https://jsonplaceholder.typicode.com/posts/1")
+
+// create a post
+const response = await post("https://jsonplaceholder.typicode.com/posts", {
+    title: "My post title",
+    body: "This is my post body.",
+    userId: 1,
+})
+```
 
 ## 📖 API Reference
 
-// TODO: Write api reference section.
+### `get(url)`
+
+| Name  | Required | Default | Example                                      | Description             |
+| ----- | -------- | ------- | -------------------------------------------- | ----------------------- |
+| `url` | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API. |
+
+Perform an HTTP GET request. The response is automatically converted to JSON.
+
+```javascript
+get("https://jsonplaceholder.typicode.com/posts")
+```
+
+### `post(url, body)`
+
+| Name   | Required | Default | Example                                      | Description                   |
+| ------ | -------- | ------- | -------------------------------------------- | ----------------------------- |
+| `url`  | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.       |
+| `body` | `false`  | `{}`    | `{first: "Brad", last: "Garropy"}`           | JSON body to send to the API. |
+
+Perform an HTTP POST request. If a `body` is supplied, it's automatically converted to a string before being sent in the request. The response is automatically converted to JSON.
+
+```javascript
+// post without body
+post("https://jsonplaceholder.typicode.com/posts")
+
+// post with body
+post("https://jsonplaceholder.typicode.com/posts", {
+    first: "Brad",
+    last: "Garropy",
+})
+```
 
 ## ❔ Questions
 
@@ -72,3 +117,4 @@ npm install @bradgarropy/http
 [typescript-badge]: https://img.shields.io/npm/types/@bradgarropy/http?style=flat-square
 [discord]: https://bradgarropy.com/discord
 [discord-badge]: https://img.shields.io/discord/748196643140010015?style=flat-square
+[axios]: https://github.com/axios/axios
