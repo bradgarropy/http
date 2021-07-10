@@ -10,9 +10,11 @@ const main = async () => {
     const newPost = await http.post(
         "https://jsonplaceholder.typicode.com/posts",
         {
-            title: "foo",
-            body: "bar",
-            userId: 1,
+            body: {
+                title: "foo",
+                body: "bar",
+                userId: 1,
+            },
         },
     )
 

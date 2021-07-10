@@ -9,9 +9,14 @@ import {
 describe("http get", () => {
     const url = "https://jsonplaceholder.typicode.com/posts"
 
-    test("get", async () => {
+    test("get all", async () => {
         const response = await get(url)
         expect(response.slice(0, 3)).toEqual(mockPosts)
+    })
+
+    test("get one", async () => {
+        const response = await get(`${url}/1`)
+        expect(response).toEqual(mockPosts[0])
     })
 
     test("get with headers", async () => {
