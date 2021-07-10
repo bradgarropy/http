@@ -45,33 +45,44 @@ const response = await post("https://jsonplaceholder.typicode.com/posts", {
 
 ### `get(url)`
 
-| Name  | Required | Default | Example                                      | Description             |
-| ----- | -------- | ------- | -------------------------------------------- | ----------------------- |
-| `url` | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API. |
+| Name              | Required | Default | Example                                      | Description                         |
+| ----------------- | -------- | ------- | -------------------------------------------- | ----------------------------------- |
+| `url`             | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.             |
+| `options.headers` | `false`  | `{}`    | `{"content-type": "application/json"}`       | Headers object, similar to `fetch`. |
 
 Perform an HTTP GET request. The response is automatically converted to JSON.
 
 ```javascript
+// get without options
 get("https://jsonplaceholder.typicode.com/posts")
+
+// get with  options
+get("https://jsonplaceholder.typicode.com/posts", {
+    headers: {"content-type": "application/json"},
+})
 ```
 
 ### `post(url, body)`
 
-| Name   | Required | Default | Example                                      | Description                   |
-| ------ | -------- | ------- | -------------------------------------------- | ----------------------------- |
-| `url`  | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.       |
-| `body` | `false`  | `{}`    | `{first: "Brad", last: "Garropy"}`           | JSON body to send to the API. |
+| Name              | Required | Default | Example                                      | Description                         |
+| ----------------- | -------- | ------- | -------------------------------------------- | ----------------------------------- |
+| `url`             | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.             |
+| `options.headers` | `false`  | `{}`    | `{"content-type": "application/json"}`       | Headers object, similar to `fetch`. |
+| `options.body`    | `false`  | `{}`    | `{first: "Brad", last: "Garropy"}`           | JSON body to send to the API.       |
 
 Perform an HTTP POST request. If a `body` is supplied, it's automatically converted to a string before being sent in the request. The response is automatically converted to JSON.
 
 ```javascript
-// post without body
+// post without options
 post("https://jsonplaceholder.typicode.com/posts")
 
-// post with body
+// post with options
 post("https://jsonplaceholder.typicode.com/posts", {
-    first: "Brad",
-    last: "Garropy",
+    headers: {"content-type": "application/json"},
+    body: {
+        first: "Brad",
+        last: "Garropy",
+    },
 })
 ```
 

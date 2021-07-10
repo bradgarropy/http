@@ -1,16 +1,8 @@
-type Post = {
-    id: number
-    userId: number
-    title: string
-    body: string
-}
-
-const mockPosts: Post[] = [
+const mockPosts = [
     {
         userId: 1,
         id: 1,
-        title:
-            "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+        title: "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
         body:
             "quia et suscipit\n" +
             "suscipit recusandae consequuntur expedita et cum\n" +
@@ -39,23 +31,22 @@ const mockPosts: Post[] = [
     },
 ]
 
-type NewPostRequest = Pick<Post, "userId" | "title" | "body">
-
-const mockNewPostRequest: NewPostRequest = {
+const mockNewPostRequest = {
     title: "foo",
     body: "bar",
     userId: 1,
 }
 
-type NewPostResponse = Pick<Post, "id">
+const mockNewPostResponse = {
+    id: 101,
+    ...mockNewPostRequest,
+}
 
-const mockNewPostResponse: NewPostResponse = {id: 101}
+const mockPartialNewPostResponse = {id: 101}
 
 export {
     mockNewPostRequest,
     mockNewPostResponse,
+    mockPartialNewPostResponse,
     mockPosts,
-    NewPostRequest,
-    NewPostResponse,
-    Post,
 }
