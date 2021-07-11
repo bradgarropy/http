@@ -52,7 +52,7 @@ const newPost = await post("https://jsonplaceholder.typicode.com/posts", {
 
 ## 📖 API Reference
 
-### `get(url)`
+### `get(url, options)`
 
 | Name              | Required | Default | Example                                      | Description                         |
 | ----------------- | -------- | ------- | -------------------------------------------- | ----------------------------------- |
@@ -73,7 +73,7 @@ get("https://jsonplaceholder.typicode.com/posts", {
 })
 ```
 
-### `post(url, body)`
+### `post(url, options)`
 
 | Name              | Required | Default | Example                                      | Description                         |
 | ----------------- | -------- | ------- | -------------------------------------------- | ----------------------------------- |
