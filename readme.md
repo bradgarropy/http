@@ -14,6 +14,12 @@ _📻 http request library heavily inspired by [axios][axios]._
 
 Most of the time, `fetch` is used to interact with a JSON API. This library is a thin wrapper around `fetch` that converts the request and response body to JSON by default.
 
+<p align="center">
+    <a href="https://www.npmjs.com/package/@bradgarropy/http">
+        <img alt="next link" src="./images/github.png" width="500">
+    </a>
+</p>
+
 ## 📦 Installation
 
 This package is hosted on [npm][npm].
