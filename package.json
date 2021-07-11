@@ -1,6 +1,6 @@
 {
     "name": "@bradgarropy/http",
-    "version": "0.0.3",
+    "version": "1.0.0",
     "description": "📻 http request library",
     "keywords": [
         "node",
