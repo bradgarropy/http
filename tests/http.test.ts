@@ -11,7 +11,7 @@ describe("http get", () => {
 
     test("get all", async () => {
         const response = await get(url)
-        expect(response.slice(0, 3)).toEqual(mockPosts)
+        expect(response.slice(0, 10)).toEqual(mockPosts)
     })
 
     test("get one", async () => {
@@ -25,7 +25,16 @@ describe("http get", () => {
         }
 
         const response = await get(url, options)
-        expect(response.slice(0, 3)).toEqual(mockPosts)
+        expect(response.slice(0, 10)).toEqual(mockPosts)
+    })
+
+    test("get with params", async () => {
+        const options = {
+            params: {userId: 1},
+        }
+
+        const response = await get(url, options)
+        expect(response).toEqual(mockPosts)
     })
 })
 
@@ -50,6 +59,15 @@ describe("http post", () => {
     test("post with headers", async () => {
         const options = {
             headers: {"x-test": "true"},
+        }
+
+        const response = await post(url, options)
+        expect(response).toEqual(mockPartialNewPostResponse)
+    })
+
+    test("post with params", async () => {
+        const options = {
+            params: {userId: 1},
         }
 
         const response = await post(url, options)
