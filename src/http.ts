@@ -9,7 +9,10 @@ type GetOptions = {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const get = async (url: string, options?: GetOptions): Promise<any> => {
+const get = async <ResponseType>(
+    url: string,
+    options?: GetOptions,
+): Promise<ResponseType> => {
     if (options?.params) {
         url = createUrl(url, options.params)
     }
@@ -19,7 +22,7 @@ const get = async (url: string, options?: GetOptions): Promise<any> => {
         headers: options?.headers,
     })
 
-    const json = await response.json()
+    const json = (await response.json()) as ResponseType
     return json
 }
 
@@ -31,7 +34,10 @@ type PostOptions = {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const post = async (url: string, options?: PostOptions): Promise<any> => {
+const post = async <ResponseType>(
+    url: string,
+    options?: PostOptions,
+): Promise<ResponseType> => {
     if (options?.params) {
         url = createUrl(url, options.params)
     }
@@ -49,7 +55,7 @@ const post = async (url: string, options?: PostOptions): Promise<any> => {
         body,
     })
 
-    const json = await response.json()
+    const json = (await response.json()) as ResponseType
     return json
 }
 

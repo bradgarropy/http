@@ -4,18 +4,19 @@ import {
     mockNewPostResponse,
     mockPartialNewPostResponse,
     mockPosts,
+    Post,
 } from "./mocks"
 
 describe("http get", () => {
     const url = "https://jsonplaceholder.typicode.com/posts"
 
     test("get all", async () => {
-        const response = await get(url)
+        const response = await get<Post[]>(url)
         expect(response.slice(0, 10)).toEqual(mockPosts)
     })
 
     test("get one", async () => {
-        const response = await get(`${url}/1`)
+        const response = await get<Post>(`${url}/1`)
         expect(response).toEqual(mockPosts[0])
     })
 
@@ -24,7 +25,7 @@ describe("http get", () => {
             headers: {"content-type": "application/json"},
         }
 
-        const response = await get(url, options)
+        const response = await get<Post[]>(url, options)
         expect(response.slice(0, 10)).toEqual(mockPosts)
     })
 
@@ -33,7 +34,7 @@ describe("http get", () => {
             params: {userId: 1},
         }
 
-        const response = await get(url, options)
+        const response = await get<Post[]>(url, options)
         expect(response).toEqual(mockPosts)
     })
 })
@@ -47,12 +48,12 @@ describe("http post", () => {
             body: mockNewPostRequest,
         }
 
-        const response = await post(url, options)
+        const response = await post<Post>(url, options)
         expect(response).toEqual(mockNewPostResponse)
     })
 
     test("empty post", async () => {
-        const response = await post(url)
+        const response = await post<Partial<Post>>(url)
         expect(response).toEqual(mockPartialNewPostResponse)
     })
 
@@ -61,7 +62,7 @@ describe("http post", () => {
             headers: {"x-test": "true"},
         }
 
-        const response = await post(url, options)
+        const response = await post<Partial<Post>>(url, options)
         expect(response).toEqual(mockPartialNewPostResponse)
     })
 
@@ -70,7 +71,7 @@ describe("http post", () => {
             params: {userId: 1},
         }
 
-        const response = await post(url, options)
+        const response = await post<Partial<Post>>(url, options)
         expect(response).toEqual(mockPartialNewPostResponse)
     })
 
@@ -79,7 +80,7 @@ describe("http post", () => {
             body: mockNewPostRequest,
         }
 
-        const response = await post(url, options)
+        const response = await post<Post>(url, options)
         expect(response).toEqual(mockNewPostResponse)
     })
 })
