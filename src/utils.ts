@@ -1,4 +1,5 @@
 import {Headers} from "cross-fetch"
+import FormData from "form-data"
 
 import {Body, ContentType, HeadersType, Parameters} from "./types"
 
@@ -29,11 +30,6 @@ const createHeaders = ({
             break
 
         case "form":
-            newHeaders.set("content-type", "multipart/form-data")
-            break
-
-        default:
-            newHeaders.set("content-type", "application/json")
             break
     }
 
@@ -46,10 +42,10 @@ const createBody = ({
 }: {
     body?: Body
     type?: ContentType
-}): BodyInit | FormData => {
+}): BodyInit => {
     switch (type) {
         case "json": {
-            const newBody = JSON.stringify(body) as BodyInit
+            const newBody = JSON.stringify(body)
             return newBody
         }
 
@@ -60,12 +56,8 @@ const createBody = ({
                 form.append(key, value)
             })
 
-            return form
-        }
-
-        default: {
-            const newBody = JSON.stringify(body) as BodyInit
-            return newBody
+            // form-data types do not match actual FormData types
+            return form as unknown as globalThis.FormData
         }
     }
 }
