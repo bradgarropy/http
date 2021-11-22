@@ -1,18 +1,20 @@
 import fetch from "cross-fetch"
 
-import {appendQueryString} from "./utils"
+import {Body, ContentType, Headers, Parameters} from "./types"
+import {createBody, createHeaders, createUrl} from "./utils"
 
 type GetOptions = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    headers?: Record<string, any>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    params?: Record<string, any>
+    headers?: Headers
+    params?: Parameters
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const get = async (url: string, options?: GetOptions): Promise<any> => {
+const get = async <ResponseType>(
+    url: string,
+    options?: GetOptions,
+): Promise<ResponseType> => {
     if (options?.params) {
-        url = appendQueryString(url, options.params)
+        url = createUrl(url, options.params)
     }
 
     const response = await fetch(url, {
@@ -20,36 +22,42 @@ const get = async (url: string, options?: GetOptions): Promise<any> => {
         headers: options?.headers,
     })
 
-    const json = await response.json()
+    const json = (await response.json()) as ResponseType
     return json
 }
 
 type PostOptions = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    headers?: Record<string, any>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    params?: Record<string, any>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: Record<string, any>
+    headers?: Headers
+    params?: Parameters
+    body?: Body
+    type?: ContentType
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const post = async (url: string, options?: PostOptions): Promise<any> => {
+const post = async <ResponseType>(
+    url: string,
+    options?: PostOptions,
+): Promise<ResponseType> => {
     if (options?.params) {
-        url = appendQueryString(url, options.params)
+        url = createUrl(url, options.params)
     }
+
+    const headers = createHeaders({
+        headers: options?.headers,
+        type: options?.type,
+    })
+
+    const body = createBody({body: options?.body, type: options?.type})
 
     const response = await fetch(url, {
         method: "POST",
-        headers: {
-            "content-type": "application/json",
-            ...options?.headers,
-        },
-        body: JSON.stringify(options?.body),
+        headers,
+        body,
     })
 
-    const json = await response.json()
+    const json = (await response.json()) as ResponseType
     return json
 }
 
 export {get, post}
+export type {GetOptions, PostOptions}

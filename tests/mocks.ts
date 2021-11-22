@@ -1,4 +1,11 @@
-const mockPosts = [
+type Post = {
+    userId: number
+    id: number
+    title: string
+    body: string
+}
+
+const mockPosts: Post[] = [
     {
         userId: 1,
         id: 1,
@@ -61,18 +68,18 @@ const mockPosts = [
     },
 ]
 
-const mockNewPostRequest = {
+const mockNewPostRequest: Pick<Post, "title" | "body" | "userId"> = {
     title: "foo",
     body: "bar",
     userId: 1,
 }
 
-const mockNewPostResponse = {
+const mockNewPostResponse: Post = {
     id: 101,
     ...mockNewPostRequest,
 }
 
-const mockPartialNewPostResponse = {id: 101}
+const mockPartialNewPostResponse: Partial<Post> = {id: 101}
 
 export {
     mockNewPostRequest,
@@ -80,3 +87,5 @@ export {
     mockPartialNewPostResponse,
     mockPosts,
 }
+
+export type {Post}

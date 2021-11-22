@@ -1,6 +1,6 @@
 {
     "name": "@bradgarropy/http",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "description": "📻 http request library",
     "keywords": [
         "node",
@@ -45,17 +45,18 @@
     },
     "dependencies": {
         "cross-fetch": "^3.1.4",
+        "form-data": "^4.0.0",
         "tslib": "^2.3.0"
     },
     "devDependencies": {
         "@bradgarropy/eslint-config": "^1.1.0",
         "@bradgarropy/eslint-config-typescript": "^1.0.2",
-        "@types/jest": "^26.0.24",
-        "@typescript-eslint/eslint-plugin": "^4.28.2",
-        "@typescript-eslint/parser": "^4.28.2",
+        "@types/jest": "^27.0.3",
+        "@typescript-eslint/eslint-plugin": "^5.4.0",
+        "@typescript-eslint/parser": "^5.4.0",
         "all-contributors-cli": "^6.20.0",
         "babel-eslint": "^10.1.0",
-        "eslint": "^7.30.0",
+        "eslint": "^8.3.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-simple-import-sort": "^7.0.0",
         "husky": "^4.3.8",
