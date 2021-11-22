@@ -16,7 +16,7 @@ Most of the time, `fetch` is used to interact with a JSON API. This library is a
 
 <p align="center">
     <a href="https://www.npmjs.com/package/@bradgarropy/http">
-        <img alt="next link" src="./images/github.png" width="500">
+        <img alt="http" src="./images/github.png" width="500">
     </a>
 </p>
 
@@ -33,21 +33,23 @@ npm install @bradgarropy/http
 This library's API is very similar to [axios][axios]. You can issue HTTP requests which are assumed to be JSON by default. It returns a `Promise` with the response data.
 
 ```javascript
+import http from "@bradgarropy/http"
+
 // get all posts
-const posts = await get("https://jsonplaceholder.typicode.com/posts")
+const posts = await http.get("https://jsonplaceholder.typicode.com/posts")
 
 // get posts by user
-const posts = await get("https://jsonplaceholder.typicode.com/posts", {
+const posts = await http.get("https://jsonplaceholder.typicode.com/posts", {
     params: {
         userId: 1,
     },
 })
 
 // get one post
-const post = await get("https://jsonplaceholder.typicode.com/posts/1")
+const post = await http.get("https://jsonplaceholder.typicode.com/posts/1")
 
 // create a post
-const newPost = await post("https://jsonplaceholder.typicode.com/posts", {
+const newPost = await http.post("https://jsonplaceholder.typicode.com/posts", {
     body: {
         title: "My post title",
         body: "This is my post body.",
@@ -63,45 +65,47 @@ const newPost = await post("https://jsonplaceholder.typicode.com/posts", {
 | Name              | Required | Default | Example                                      | Description                         |
 | ----------------- | -------- | ------- | -------------------------------------------- | ----------------------------------- |
 | `url`             | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.             |
-| `options.headers` | `false`  | `{}`    | `{"content-type": "application/json"}`       | Headers object, similar to `fetch`. |
+| `options.headers` | `false`  | `{}`    | `{"authorization": "Bearer abc123"}`         | Headers object, similar to `fetch`. |
 | `options.params`  | `false`  | `{}`    | `{userId: 1}`                                | Query parameters object.            |
 
 Perform an HTTP GET request. The response is automatically converted to JSON.
 
 ```javascript
 // get without options
-get("https://jsonplaceholder.typicode.com/posts")
+http.get("https://jsonplaceholder.typicode.com/posts")
 
 // get with  options
-get("https://jsonplaceholder.typicode.com/posts", {
-    headers: {"content-type": "application/json"},
+http.get("https://jsonplaceholder.typicode.com/posts", {
+    headers: {authorization: "Bearer abc123"},
     params: {userId: 1},
 })
 ```
 
 ### `post(url, options)`
 
-| Name              | Required | Default | Example                                      | Description                         |
-| ----------------- | -------- | ------- | -------------------------------------------- | ----------------------------------- |
-| `url`             | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.             |
-| `options.headers` | `false`  | `{}`    | `{"content-type": "application/json"}`       | Headers object, similar to `fetch`. |
-| `options.params`  | `false`  | `{}`    | `{userId: 1}`                                | Query parameters object.            |
-| `options.body`    | `false`  | `{}`    | `{first: "Brad", last: "Garropy"}`           | JSON body to send to the API.       |
+| Name              | Required | Default | Example                                      | Description                                                              |
+| ----------------- | -------- | ------- | -------------------------------------------- | ------------------------------------------------------------------------ |
+| `url`             | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.                                                  |
+| `options.headers` | `false`  | `{}`    | `{"authorization": "Bearer abc123"}`         | Headers object, similar to `fetch`.                                      |
+| `options.params`  | `false`  | `{}`    | `{userId: 1}`                                | Query parameters object.                                                 |
+| `options.body`    | `false`  | `{}`    | `{first: "Brad", last: "Garropy"}`           | Body to send to the API. Define the `Content-Type` using `options.type`. |
+| `options.type`    | `false`  | `json`  | `form`                                       | Content type of the body. (`json` \| `form`)                             |
 
 Perform an HTTP POST request. If a `body` is supplied, it's automatically converted to a string before being sent in the request. The response is automatically converted to JSON.
 
 ```javascript
 // post without options
-post("https://jsonplaceholder.typicode.com/posts")
+http.post("https://jsonplaceholder.typicode.com/posts")
 
 // post with options
-post("https://jsonplaceholder.typicode.com/posts", {
-    headers: {"content-type": "application/json"},
+http.post("https://jsonplaceholder.typicode.com/posts", {
+    headers: {authorization: "Bearer abc123"},
     params: {userId: 1},
     body: {
         first: "Brad",
         last: "Garropy",
     },
+    type: "json",
 })
 ```
 

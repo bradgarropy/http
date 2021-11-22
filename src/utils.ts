@@ -37,12 +37,16 @@ const createHeaders = ({
 }
 
 const createBody = ({
-    body = {},
+    body,
     type = "json",
 }: {
     body?: Body
     type?: ContentType
-}): BodyInit => {
+}): BodyInit | null => {
+    if (!body) {
+        return null
+    }
+
     switch (type) {
         case "json": {
             const newBody = JSON.stringify(body)

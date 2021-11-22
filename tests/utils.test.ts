@@ -56,7 +56,7 @@ describe("createHeaders", () => {
 describe("createBody", () => {
     test("creates default body", () => {
         const body = createBody({})
-        expect(body).toEqual(JSON.stringify({}))
+        expect(body).toEqual(null)
     })
 
     test("creates json body", () => {
