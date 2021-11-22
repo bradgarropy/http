@@ -1,12 +1,11 @@
 import fetch from "cross-fetch"
 
-import {appendQueryString} from "./utils"
+import {ContentType, Parameters} from "./types"
+import {appendQueryString, createHeaders} from "./utils"
 
 type GetOptions = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    headers?: Record<string, any>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    params?: Record<string, any>
+    headers?: Headers
+    params?: Parameters
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,12 +24,10 @@ const get = async (url: string, options?: GetOptions): Promise<any> => {
 }
 
 type PostOptions = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    headers?: Record<string, any>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    params?: Record<string, any>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    body?: Record<string, any>
+    headers?: Headers
+    params?: Parameters
+    body?: Body
+    type?: ContentType
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,12 +36,14 @@ const post = async (url: string, options?: PostOptions): Promise<any> => {
         url = appendQueryString(url, options.params)
     }
 
+    const headers = createHeaders({
+        headers: options?.headers,
+        type: options?.type,
+    })
+
     const response = await fetch(url, {
         method: "POST",
-        headers: {
-            "content-type": "application/json",
-            ...options?.headers,
-        },
+        headers,
         body: JSON.stringify(options?.body),
     })
 
