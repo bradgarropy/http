@@ -1,10 +1,10 @@
 import fetch from "cross-fetch"
 
-import {Body, ContentType, HeadersType, Parameters} from "./types"
+import {Body, ContentType, Headers, Parameters} from "./types"
 import {createBody, createHeaders, createUrl} from "./utils"
 
 type GetOptions = {
-    headers?: HeadersType
+    headers?: Headers
     params?: Parameters
 }
 
@@ -24,7 +24,7 @@ const get = async (url: string, options?: GetOptions): Promise<any> => {
 }
 
 type PostOptions = {
-    headers?: HeadersType
+    headers?: Headers
     params?: Parameters
     body?: Body
     type?: ContentType

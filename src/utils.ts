@@ -1,7 +1,7 @@
 import {Headers} from "cross-fetch"
 import FormData from "form-data"
 
-import {Body, ContentType, HeadersType, Parameters} from "./types"
+import {Body, ContentType, Headers as HeadersType, Parameters} from "./types"
 
 const createUrl = (url: string, params: Parameters): string => {
     if (!Object.entries(params).length) {
