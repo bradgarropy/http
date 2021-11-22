@@ -1,13 +1,13 @@
-import {appendQueryString} from "../src/utils"
+import {createUrl} from "../src/utils"
 
 describe("append query string", () => {
     test("handles empty params", () => {
-        const url = appendQueryString("https://bradgarropy.com", {})
+        const url = createUrl("https://bradgarropy.com", {})
         expect(url).toEqual("https://bradgarropy.com")
     })
 
     test("handles one param", () => {
-        const url = appendQueryString("https://bradgarropy.com", {
+        const url = createUrl("https://bradgarropy.com", {
             first: "Brad",
         })
 
@@ -15,7 +15,7 @@ describe("append query string", () => {
     })
 
     test("handles params", () => {
-        const url = appendQueryString("https://bradgarropy.com", {
+        const url = createUrl("https://bradgarropy.com", {
             first: "Brad",
             cool: true,
             age: 34,

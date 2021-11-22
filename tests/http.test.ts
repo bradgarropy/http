@@ -1,4 +1,4 @@
-import {get, post} from "../src"
+import {get, GetOptions, post, PostOptions} from "../src"
 import {
     mockNewPostRequest,
     mockNewPostResponse,
@@ -20,7 +20,7 @@ describe("http get", () => {
     })
 
     test("get with headers", async () => {
-        const options = {
+        const options: GetOptions = {
             headers: {"content-type": "application/json"},
         }
 
@@ -29,7 +29,7 @@ describe("http get", () => {
     })
 
     test("get with params", async () => {
-        const options = {
+        const options: GetOptions = {
             params: {userId: 1},
         }
 
@@ -42,7 +42,7 @@ describe("http post", () => {
     const url = "https://jsonplaceholder.typicode.com/posts"
 
     test("post", async () => {
-        const options = {
+        const options: PostOptions = {
             headers: {"x-test": "true"},
             body: mockNewPostRequest,
         }
@@ -57,7 +57,7 @@ describe("http post", () => {
     })
 
     test("post with headers", async () => {
-        const options = {
+        const options: PostOptions = {
             headers: {"x-test": "true"},
         }
 
@@ -66,7 +66,7 @@ describe("http post", () => {
     })
 
     test("post with params", async () => {
-        const options = {
+        const options: PostOptions = {
             params: {userId: 1},
         }
 
@@ -75,7 +75,7 @@ describe("http post", () => {
     })
 
     test("post with body", async () => {
-        const options = {
+        const options: PostOptions = {
             body: mockNewPostRequest,
         }
 
