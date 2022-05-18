@@ -33,7 +33,7 @@ npm install @bradgarropy/http
 This library's API is very similar to [axios][axios]. You can issue HTTP requests which are assumed to be JSON by default. It returns a `Promise` with the response data.
 
 ```javascript
-import http from "@bradgarropy/http"
+import {http} from "@bradgarropy/http"
 
 // get all posts
 const posts = await http.get("https://jsonplaceholder.typicode.com/posts")
@@ -56,17 +56,44 @@ const newPost = await http.post("https://jsonplaceholder.typicode.com/posts", {
         userId: 1,
     },
 })
+
+// update a post
+const newPost = await http.patch(
+    "https://jsonplaceholder.typicode.com/posts/1",
+    {
+        body: {
+            title: "My new post title",
+            body: "This is my new post body.",
+            userId: 1,
+        },
+    },
+)
+
+// delete a post
+const oldPost = await http.delete(
+    "https://jsonplaceholder.typicode.com/posts/1",
+)
 ```
 
 ## 📖 API Reference
 
+### `options`
+
+All methods support an `options` object. Here are the set of supported options.
+
+| Name      | Required | Default | Example                              | Description                                                      |
+| --------- | -------- | ------- | ------------------------------------ | ---------------------------------------------------------------- |
+| `headers` | `false`  | `{}`    | `{"authorization": "Bearer abc123"}` | Headers object, similar to `fetch`.                              |
+| `params`  | `false`  | `{}`    | `{userId: 1}`                        | Query parameters object.                                         |
+| `body`    | `false`  | `{}`    | `{first: "Brad", last: "Garropy"}`   | Body to send to the API. Define the `Content-Type` using `type`. |
+| `type`    | `false`  | `json`  | `form`                               | Content type of the body. (`json` \| `form`)                     |
+
 ### `get(url, options)`
 
-| Name              | Required | Default | Example                                      | Description                         |
-| ----------------- | -------- | ------- | -------------------------------------------- | ----------------------------------- |
-| `url`             | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.             |
-| `options.headers` | `false`  | `{}`    | `{"authorization": "Bearer abc123"}`         | Headers object, similar to `fetch`. |
-| `options.params`  | `false`  | `{}`    | `{userId: 1}`                                | Query parameters object.            |
+| Name      | Required | Default | Example                                      | Description                  |
+| --------- | -------- | ------- | -------------------------------------------- | ---------------------------- |
+| `url`     | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.      |
+| `options` | `false`  | `{}`    | `{params: {userId: 1}}`                      | Request [options](#options). |
 
 Perform an HTTP GET request. The response is automatically converted to JSON.
 
@@ -78,18 +105,20 @@ http.get("https://jsonplaceholder.typicode.com/posts")
 http.get("https://jsonplaceholder.typicode.com/posts", {
     headers: {authorization: "Bearer abc123"},
     params: {userId: 1},
+    body: {
+        first: "Brad",
+        last: "Garropy",
+    },
+    type: "json",
 })
 ```
 
 ### `post(url, options)`
 
-| Name              | Required | Default | Example                                      | Description                                                              |
-| ----------------- | -------- | ------- | -------------------------------------------- | ------------------------------------------------------------------------ |
-| `url`             | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.                                                  |
-| `options.headers` | `false`  | `{}`    | `{"authorization": "Bearer abc123"}`         | Headers object, similar to `fetch`.                                      |
-| `options.params`  | `false`  | `{}`    | `{userId: 1}`                                | Query parameters object.                                                 |
-| `options.body`    | `false`  | `{}`    | `{first: "Brad", last: "Garropy"}`           | Body to send to the API. Define the `Content-Type` using `options.type`. |
-| `options.type`    | `false`  | `json`  | `form`                                       | Content type of the body. (`json` \| `form`)                             |
+| Name      | Required | Default | Example                                      | Description                  |
+| --------- | -------- | ------- | -------------------------------------------- | ---------------------------- |
+| `url`     | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.      |
+| `options` | `false`  | `{}`    | `{params: {userId: 1}}`                      | Request [options](#options). |
 
 Perform an HTTP POST request. If a `body` is supplied, it's automatically converted to a string before being sent in the request. The response is automatically converted to JSON.
 
@@ -99,6 +128,56 @@ http.post("https://jsonplaceholder.typicode.com/posts")
 
 // post with options
 http.post("https://jsonplaceholder.typicode.com/posts", {
+    headers: {authorization: "Bearer abc123"},
+    params: {userId: 1},
+    body: {
+        first: "Brad",
+        last: "Garropy",
+    },
+    type: "json",
+})
+```
+
+### `patch(url, options)`
+
+| Name      | Required | Default | Example                                      | Description                  |
+| --------- | -------- | ------- | -------------------------------------------- | ---------------------------- |
+| `url`     | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.      |
+| `options` | `false`  | `{}`    | `{params: {userId: 1}}`                      | Request [options](#options). |
+
+Perform an HTTP PATCH request. If a `body` is supplied, it's automatically converted to a string before being sent in the request. The response is automatically converted to JSON.
+
+```javascript
+// patch without options
+http.patch("https://jsonplaceholder.typicode.com/posts")
+
+// patch with options
+http.patch("https://jsonplaceholder.typicode.com/posts", {
+    headers: {authorization: "Bearer abc123"},
+    params: {userId: 1},
+    body: {
+        first: "Brad",
+        last: "Garropy",
+    },
+    type: "json",
+})
+```
+
+### `delete(url, options)`
+
+| Name      | Required | Default | Example                                      | Description                  |
+| --------- | -------- | ------- | -------------------------------------------- | ---------------------------- |
+| `url`     | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.      |
+| `options` | `false`  | `{}`    | `{params: {userId: 1}}`                      | Request [options](#options). |
+
+Perform an HTTP DELETE request. If a `body` is supplied, it's automatically converted to a string before being sent in the request. The response is automatically converted to JSON.
+
+```javascript
+// delete without options
+http.delete("https://jsonplaceholder.typicode.com/posts")
+
+// delete with options
+http.delete("https://jsonplaceholder.typicode.com/posts", {
     headers: {authorization: "Bearer abc123"},
     params: {userId: 1},
     body: {
