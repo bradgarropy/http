@@ -1,4 +1,4 @@
-const http = require("../.")
+const {http} = require("../.")
 
 const main = async () => {
     const posts = await http.get("https://jsonplaceholder.typicode.com/posts")
