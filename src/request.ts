@@ -29,8 +29,13 @@ const httpRequest = async <ResponseType>(
         body,
     })
 
-    const json: ResponseType = await response.json()
-    return json
+    try {
+        const json: ResponseType = await response.json()
+        return json
+    } catch {
+        const json = {} as ResponseType
+        return json
+    }
 }
 
 export {httpRequest}
