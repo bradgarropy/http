@@ -38,22 +38,22 @@ import {http} from "@bradgarropy/http"
 // get all posts
 const posts = await http.get("https://jsonplaceholder.typicode.com/posts")
 
+// get one post
+const post = await http.get("https://jsonplaceholder.typicode.com/posts/1")
+
 // get posts by user
-const posts = await http.get("https://jsonplaceholder.typicode.com/posts", {
+const userPosts = await http.get("https://jsonplaceholder.typicode.com/posts", {
     params: {
         userId: 1,
     },
 })
 
-// get one post
-const post = await http.get("https://jsonplaceholder.typicode.com/posts/1")
-
 // create a post
 const newPost = await http.post("https://jsonplaceholder.typicode.com/posts", {
     body: {
+        userId: 1,
         title: "My post title",
         body: "This is my post body.",
-        userId: 1,
     },
 })
 
@@ -62,9 +62,9 @@ const newPost = await http.patch(
     "https://jsonplaceholder.typicode.com/posts/1",
     {
         body: {
+            userId: 1,
             title: "My new post title",
             body: "This is my new post body.",
-            userId: 1,
         },
     },
 )
@@ -77,7 +77,11 @@ const oldPost = await http.delete(
 
 ## 📖 API Reference
 
-### `options`
+Every method assumes that the response coming back from the API is `json`.
+
+The request `body` is converted to a `string` if the Content Type is `json`, or a `FormData` object if the Content Type is `form`.
+
+> **NOTE |** The request `body` is ignored when using the `GET` method.
 
 All methods support an `options` object. Here are the set of supported options.
 
@@ -85,7 +89,7 @@ All methods support an `options` object. Here are the set of supported options.
 | --------- | -------- | ------- | ------------------------------------ | ---------------------------------------------------------------- |
 | `headers` | `false`  | `{}`    | `{"authorization": "Bearer abc123"}` | Headers object, similar to `fetch`.                              |
 | `params`  | `false`  | `{}`    | `{userId: 1}`                        | Query parameters object.                                         |
-| `body`    | `false`  | `{}`    | `{first: "Brad", last: "Garropy"}`   | Body to send to the API. Define the `Content-Type` using `type`. |
+| `body`    | `false`  | `{}`    | `{name: "Brad Garropy"}`             | Body to send to the API. Define the `Content-Type` using `type`. |
 | `type`    | `false`  | `json`  | `form`                               | Content type of the body. (`json` \| `form`)                     |
 
 ### `get(url, options)`
@@ -95,7 +99,7 @@ All methods support an `options` object. Here are the set of supported options.
 | `url`     | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.      |
 | `options` | `false`  | `{}`    | `{params: {userId: 1}}`                      | Request [options](#options). |
 
-Perform an HTTP GET request. The response is automatically converted to JSON.
+Perform an HTTP GET request.
 
 ```javascript
 // get without options
@@ -120,7 +124,7 @@ http.get("https://jsonplaceholder.typicode.com/posts", {
 | `url`     | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.      |
 | `options` | `false`  | `{}`    | `{params: {userId: 1}}`                      | Request [options](#options). |
 
-Perform an HTTP POST request. If a `body` is supplied, it's automatically converted to a string before being sent in the request. The response is automatically converted to JSON.
+Perform an HTTP POST request.
 
 ```javascript
 // post without options
@@ -145,7 +149,7 @@ http.post("https://jsonplaceholder.typicode.com/posts", {
 | `url`     | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.      |
 | `options` | `false`  | `{}`    | `{params: {userId: 1}}`                      | Request [options](#options). |
 
-Perform an HTTP PATCH request. If a `body` is supplied, it's automatically converted to a string before being sent in the request. The response is automatically converted to JSON.
+Perform an HTTP PATCH request.
 
 ```javascript
 // patch without options
@@ -170,7 +174,7 @@ http.patch("https://jsonplaceholder.typicode.com/posts", {
 | `url`     | `true`   |         | `https://jsonplaceholder.typicode.com/posts` | Web address of the API.      |
 | `options` | `false`  | `{}`    | `{params: {userId: 1}}`                      | Request [options](#options). |
 
-Perform an HTTP DELETE request. If a `body` is supplied, it's automatically converted to a string before being sent in the request. The response is automatically converted to JSON.
+Perform an HTTP DELETE request.
 
 ```javascript
 // delete without options
