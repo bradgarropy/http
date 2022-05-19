@@ -79,9 +79,7 @@ const oldPost = await http.delete(
 
 Every method assumes that the response coming back from the API is `json`.
 
-The request `body` is converted to a `string` if the Content Type is `json`, or a `FormData` object if the Content Type is `form`.
-
-> **NOTE |** The request `body` is ignored when using the `GET` method.
+The request `body` is converted to a `string` if the Content Type is `json`, or a `FormData` object if the Content Type is `form`. The request `body` is ignored when using the `GET` method.
 
 All methods support an `options` object. Here are the set of supported options.
 
