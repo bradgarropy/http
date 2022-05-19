@@ -1,8 +1,26 @@
+import {Options} from "../src/types"
+
 type Post = {
     userId: number
     id: number
     title: string
     body: string
+}
+
+const mockUrl = "https://jsonplaceholder.typicode.com"
+
+const mockOptions: Options = {
+    headers: {
+        authorization: "Bearer abc123",
+    },
+    params: {
+        userId: 1,
+    },
+    body: {
+        firstName: "Brad",
+        lastName: "Garropy",
+    },
+    type: "json",
 }
 
 const mockPosts: Post[] = [
@@ -84,8 +102,10 @@ const mockPartialNewPostResponse: Partial<Post> = {id: 101}
 export {
     mockNewPostRequest,
     mockNewPostResponse,
+    mockOptions,
     mockPartialNewPostResponse,
     mockPosts,
+    mockUrl,
 }
 
 export type {Post}
